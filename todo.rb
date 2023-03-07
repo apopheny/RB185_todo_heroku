@@ -112,7 +112,6 @@ def load_list(id)
 
   session[:error] = 'The specified list was not found.'
   redirect '/lists'
-  halt
 end
 
 # Return an error message if the name is invalid. Return nil if name is valid.
