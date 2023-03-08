@@ -52,7 +52,6 @@ end
 
 def load_list(id)
   list = @storage.find_list(id)
-
   return list if list
 
   session[:error] = 'The specified list was not found.'
@@ -76,7 +75,7 @@ def error_for_todo(name)
 end
 
 before do
-  @storage = DatabasePersistence.new(1)
+  @storage = DatabasePersistence.new(logger)
 end
 
 get '/' do
