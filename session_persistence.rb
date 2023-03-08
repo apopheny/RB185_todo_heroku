@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This class handles data storage using the session cookie, including CRUD functionality
 class SessionPersistence
   def initialize(session)
@@ -15,7 +17,7 @@ class SessionPersistence
 
   def create_new_list(list_name)
     id = next_element_id(@session[:lists])
-    @session[:lists] << { id: id, name: list_name, todos: [] }
+    @session[:lists] << { id:, name: list_name, todos: [] }
   end
 
   def delete_list(id)
@@ -30,7 +32,7 @@ class SessionPersistence
   def create_new_todo(list_id, todo_name)
     list = find_list(list_id)
     id = next_element_id(list[:todos])
-    list[:todos] << { id: id, name: todo_name, completed: false }
+    list[:todos] << { id:, name: todo_name, completed: false }
   end
 
   def delete_todo_from_list(list_id, todo_id)

@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 
 require_relative 'database_persistence'
+
+configure(:development) do
+  require 'sinatra/reloader'
+  also_reload 'database_persistence.rb'
+end
 
 configure do
   # enable :sessions
