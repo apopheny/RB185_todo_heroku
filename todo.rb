@@ -12,9 +12,6 @@ configure(:development) do
 end
 
 configure do
-  # enable :sessions
-  # set :session_secret,
-  #     '0d3d2640fe8bd1aeb2d8e57a9cda14a32bf16262344e5362396e66060f7f9a2f'
   set :erb, escape_html: true
 end
 
