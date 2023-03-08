@@ -5,11 +5,12 @@ require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 
-require_relative 'session_persistence'
+require_relative 'database_persistence'
 
 configure do
-  enable :sessions
-  set :session_secret, '0d3d2640fe8bd1aeb2d8e57a9cda14a32bf16262344e5362396e66060f7f9a2f'
+  # enable :sessions
+  # set :session_secret,
+  #     '0d3d2640fe8bd1aeb2d8e57a9cda14a32bf16262344e5362396e66060f7f9a2f'
   set :erb, escape_html: true
 end
 
@@ -31,14 +32,18 @@ helpers do
   end
 
   def sort_lists(lists, &block)
-    complete_lists, incomplete_lists = lists.partition { |list| list_complete?(list) }
+    complete_lists, incomplete_lists = lists.partition do |list|
+      list_complete?(list)
+    end
 
     incomplete_lists.each(&block)
     complete_lists.each(&block)
   end
 
   def sort_todos(todos, &block)
-    complete_todos, incomplete_todos = todos.partition { |todo| todo[:completed] }
+    complete_todos, incomplete_todos = todos.partition do |todo|
+      todo[:completed]
+    end
 
     incomplete_todos.each(&block)
     complete_todos.each(&block)
@@ -71,7 +76,7 @@ def error_for_todo(name)
 end
 
 before do
-  @storage = SessionPersistence.new(session)
+  @storage = DatabasePersistence.new(1)
 end
 
 get '/' do
